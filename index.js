@@ -1,6 +1,7 @@
 if(process.env.NODE_env !=="production"){
     require('dotenv').config()
 }
+console.log(process.env.db_connection_string)
 const { MongoClient, TopologyType, ObjectId } = require("mongodb");
 const express = require("express");
 const path = require("path");
@@ -19,7 +20,7 @@ app.use(express.json());
 // const dbUrl = "mongodb://127.0.0.1:27017/musicBrainz";
 const dbUrl = process.env.db_connection_string
 const client = new MongoClient(dbUrl);
-const dbName = "musicBrainz";
+const dbName = "BTB";
 
 let db;
 let artists;
@@ -29,10 +30,12 @@ let albums;
 async function connectDb() {
 	await client.connect();
 	db = client.db(dbName);
-	artists = db.collection("artists_copy");
+	artists = db.collection("artists");
 	// artists_copy = db.collection('artists_copy')
 	albums = db.collection("albums");
+
 }
+
 
 app.get(
 	"/",
