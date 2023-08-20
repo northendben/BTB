@@ -226,8 +226,8 @@ app.get('/spotify', errorHandler(async(req,res)=>{
 
 	let urlencoded = new URLSearchParams();
 	urlencoded.append("grant_type", "client_credentials");
-	urlencoded.append("client_id", "b26cd71fe3b546f398a5a7b202aa2306");
-	urlencoded.append("client_secret", "ec02022d88784af48a1ce14053594f00");
+	urlencoded.append("client_id", process.env.spotify_client_id);
+	urlencoded.append("client_secret", process.env.spotify_client_secret);
 
 	let requestOptions = {
 	method: 'POST',

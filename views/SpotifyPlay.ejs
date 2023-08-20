@@ -2,7 +2,11 @@
 <%- include('./templates/solidNav.ejs') %>
     <div class="container-fluid d-flex flex-column align-items-center single-artist-page-container my-3">
         <div class="card d-flex px-3 py-3 my-3" id="single-artist-card">
+            <%if (artist.images && artist.images.length > 0) { %>
             <img src="<%=artist.images[0].url%>" alt="" class="single-artist-header-photo mx-md-auto">
+            <%} else {%>
+                <img src="/images/eric-krull-fi3_lDi3qPE-unsplash.jpg" alt="">
+            <%}%>
             <h1 class="text-center mb-0"><%=artist.name%></h1>
             <h6 class="text-muted text-center"><%=artist.min%> - <%=artist.max%></h6>
             <div class="genres d-flex justify-content-center">
