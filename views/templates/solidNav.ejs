@@ -1,0 +1,32 @@
+<nav class="navbar bg-dark navbar-dark navbar-expand-lg w-100">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">BTB</a>
+      <div class="d-md-none w-50"></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse w-100" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Artists</a>
+            <ul class="dropdown-menu solid">
+              <li><a href="/artists?verified=true" class="dropdown-item">Verified Artists</a></li>
+              <li><a href="/artists" class="dropdown-item">All Artists</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+      <form class="search ms-auto-md mt-3 mt-0-md" id="searchNav" action ="/search/artists?">
+        <input type="text" class="form-control d-inline-block" id="artistSearchBox" name="q" placeholder="Search">
+        <input type="text" class="d-none" value="<%=paginationData.isVerifiedArtists%>" name="verified">
+        <i class="fa-solid fa-magnifying-glass fa-rotate-90 search-icon position-absolute" id="submitSearch"></i>
+      </form>
+    </div>
+  </nav>
+

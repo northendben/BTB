@@ -1,0 +1,37 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/solidNav.ejs') %>
+    <div class="container-fluid d-flex flex-column align-items-center single-artist-page-container my-3">
+        <div class="card d-flex px-3 py-3 my-3" id="single-artist-card">
+            <img src="<%=artist.images[0].url%>" alt="" class="single-artist-header-photo mx-md-auto">
+            <h1 class="text-center mb-0"><%=artist.name%></h1>
+            <h6 class="text-muted text-center"><%=artist.min%> - <%=artist.max%></h6>
+            <div class="genres d-flex justify-content-center">
+                <% if (artist.genres && artist.genres.length > 0) {%>
+                    <% for(let genre of artist.genres) {%>
+                        <button class="btn btn-sm btn-outline-success mb-1 me-2 me-1-md"><a href='/artists?genre=<%=genre%>&verified=<%=paginationData.isVerifieArtists%>'><%=genre%></a></button>
+                    <%}%>
+                    <%}%>
+            </div>
+            <h3 class="card-title">Now Playing</h3>
+            <div class="mb-3 mt-2">
+                    <div class="col-12 spotify-embed">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/<%=artist.albums[0].spotify_id%>?utm_source=generator" width="100%" height="400" frameBorder="0" allowfullscreen="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+            </div>
+            <h3 class>Albums</h3>
+            <ul class="list-group list-group-horizontal flex-wrap justify-content-center">
+                <%for (let album of artist.albums){%>
+                    <li class="list-group-item col-12 col-md-4 text-center fs-3 d-flex flex-column justify-content-between" data-spotify-album-id ="<%=album.spotify_id%>" data-spotify-uri = "<%=album.spotify_uri%>">
+                        <div class="album-info">
+                            <p class="artist-album-name mb-0" id="<%=album.spotify_id%>"><%=album.title%></p>
+                            <p class="text-muted fs-5 "><%=album.year%></p>
+                        </div>
+                        <div class="album-image"><img class="img-fluid" src="<%=album.images[1].url%>" alt=""></div>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+    <script src="/JS/handleSpotifyPlayer.js"></script>
+<%- include('./templates/footer.ejs') %>
+

@@ -1,0 +1,156 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/solidNav.ejs') %>
+  <%const numOfPages = paginationData.numOfPages%>
+        <%const isVerified = paginationData.isVerifiedArtists%>
+        <% const prevPage = paginationData.skip-50%>
+        <% const nextPage = paginationData.skip+50%>
+        <% const currentSkip = paginationData.skip%>
+        <% const currentPage = paginationData.currentPage%>
+        <% let targetPage = '' %>
+        <% let targetSkip = '' %>
+        <% const middlePageDivider = 4%>
+        <% const skipInterval =50 %>
+<div class="col-10 offset-1 px-2 mt-2 mb-0">
+    <nav aria-label="page navigation">
+        <ul class="pagination justify-content-center mb-1">
+            <%if(numOfPages > 1){%>
+                <li class="page-item">
+                    <a class="page-link" href="?skip=<%=prevPage%>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <% for(let i = 1; i < 8; i++){%>
+                    <%if(currentPage < 8) {%>
+                        <%if(currentPage == i) {%>
+                            <li class="page-item">
+                                <a class="page-link active" href="?skip=<%=currentSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=currentPage%></a>
+                            </li>
+                        <%} else {%>
+                            <% targetPage = i%>
+                            <% targetSkip = (i * skipInterval) - skipInterval%>
+                            <li class="page-item">
+                                <a class="page-link" href="?skip=<%=targetSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=targetPage%></a>
+                            </li>
+                        <%}%>
+                    <%} else {%>
+                        <%if(i===4){%>
+                            <li class="page-item">
+                                <a class="page-link active" href="?skip=<%=currentSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=currentPage%></a>
+                            </li>
+                        <%} else{%>
+                            <% targetPage = currentPage - middlePageDivider + i%>
+                            <% targetSkip = currentSkip - (skipInterval*middlePageDivider) + skipInterval * i%>
+                            <li class="page-item">
+                                <a class="page-link" href="?skip=<%=targetSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=targetPage%></a>
+                            </li>
+                        <%}%>
+                    <%}%>
+                <%}%>
+                <li class="page-item">
+                    <a class="page-link" href="?skip=<%=nextPage%>&verified=<%=isVerified%>&q=<%=currentQuery%>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <%}%>
+        </ul>
+    </nav>
+</div>
+    <% if(artists.length === 0) {%>
+        <p class="text-center my-auto">Sorry No Items Matched That Search</p>
+    <%}%>
+    <% for(let artist of artists) { %>
+        <% if(artist.max == new Date().getFullYear()){%>
+            <%artist.max = 'Present'%>
+        <%}%>
+        <div class="individual-artist-container d-flex flex-column flex-md-row mb-2 col-10 offset-1 mt-2 mb-2">
+            <div class="artist-image col-1">
+                <%if (artist.images && artist.images.length > 0) { %>
+                    <img src="<%=artist.images[1].url %>" alt="">
+                <%} else {%>
+                    <img src="/images/eric-krull-fi3_lDi3qPE-unsplash.jpg" alt="">
+                <%}%>
+            </div>
+            <div class="artist-info col-12 col-md-6 offset-md-1 d-flex flex-column">
+                <div class="artist-name">
+                    <%if(artist.spotify_id){%>
+                        <h3><a href="/artists/<%=artist._id%>"><%=artist.name%></a> <span class="mobile-verification"><i class="fa-regular fa-circle-check"></i></span></h3>
+                    <%} else {%>
+                        <h3><%=artist.name%></h3>
+                    <%}%>
+                </div>
+                <%if(artist.spotify_id){%>
+                    <div class="artist-details d-flex flex-column justify-content-center">
+                        <h6 class="text-muted"><%=artist.min%> - <%=artist.max%></h6>
+                        <p> <span class="fw-bold">Albums:</span> <%=artist.albums.length%></p>
+                    </div>
+                    <div class="genres d-flex">
+                        <% if (artist.genres && artist.genres.length > 0) {%>
+                            <% for(let genre of artist.genres) {%>
+                                <button class="btn btn-sm btn-outline-success mb-1 me-2 me-1-md"><a href='/artists?genre=<%=genre%>&verified=<%=isVerified%>'><%=genre%></a></button>
+                            <%}%>
+                            <%}%>
+                    </div>
+                    <div class="popularity-container mt-1">
+                        <h6>Popularity: <%=artist.popularity%> </h6><input type="range" name="popularity" class="popularity-range range" min="0" max="100" value="<%=artist.popularity%>" disabled>
+                    </div>
+            </div>
+                <div class="col-1 mt-2 non-mobile-verification flex-grow-1 d-flex justify-content-end pe-2">
+                    <span>Verified Artist <i class="fa-regular fa-circle-check fa-xl"></i></span>
+                </div>
+            </div>
+            <%} else {%>
+                <h6 class="text-muted">No Other Information Available</h6>
+            </div>
+        </div>
+            <%}%>
+    <% } %>
+    <div class="col-10 offset-1 px-2 mt-2 mb-0">
+        <nav aria-label="page navigation">
+                <ul class="pagination justify-content-center mb-1">
+                    <%if(numOfPages > 1){%>
+                        <li class="page-item">
+                            <a class="page-link" href="?skip=<%=prevPage%>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <% for(let i = 1; i < 8; i++){%>
+                            <%if(currentPage < 8) {%>
+                                <%if(currentPage == i) {%>
+                                    <li class="page-item">
+                                        <a class="page-link active" href="?skip=<%=currentSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=currentPage%></a>
+                                    </li>
+                                <%} else {%>
+                                    <% targetPage = i%>
+                                    <% targetSkip = (i * skipInterval) - skipInterval%>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?skip=<%=targetSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=targetPage%></a>
+                                    </li>
+                                <%}%>
+                            <%} else {%>
+                                <%if(i===4){%>
+                                    <li class="page-item">
+                                        <a class="page-link active" href="?skip=<%=currentSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=currentPage%></a>
+                                    </li>
+                                <%} else{%>
+                                    <% targetPage = currentPage - middlePageDivider + i%>
+                                    <% targetSkip = currentSkip - (skipInterval*middlePageDivider) + skipInterval * i%>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?skip=<%=targetSkip%>&verified=<%=isVerified%>&q=<%=currentQuery%>"><%=targetPage%></a>
+                                    </li>
+                                <%}%>
+                            <%}%>
+                        <%}%>
+                        <li class="page-item">
+                            <a class="page-link" href="?skip=<%=nextPage%>&verified=<%=isVerified%>&q=<%=currentQuery%>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <%}%>
+            </ul>
+        </nav>
+    </div>
+    <script>const cp = <%=paginationData.currentPage%></script>
+      <script src="/JS/handleSearchSubmit.js"></script>
+    <script src="/JS/sliderFill.js"></script>
+<%- include('./templates/footer.ejs') %>
+

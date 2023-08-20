@@ -1,0 +1,93 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/transparentNav.ejs') %>
+<div
+	class="container-fluid d-flex flex-column justify-content-center align-items-center"
+	id="main-page-container"
+>
+	<div class="d-flex flex-column hide w-100" id="postIntroContainer">
+		<div class="row w-100 mb-5">
+			<div class="col-12 col-md-4 offset-md-1" id="wi-btb">
+				<p class="fs-2 text-light">
+					What <span class="emphasis">is</span> blank the blank?
+				</p>
+			</div>
+		</div>
+        <div class="row about-container w-100 d-flex align-items-center justify-content-center">
+            <div class="col-12 col-md-8">
+                <p class="fs-4 text-light">Blank the blank is just a joke between friends.</p> <p class="fs-4 text-light">One day, while getting a haircut, the dev behind this website (Ben) mentioned a concert to his long-time barber Quincy. Quincy, the genius that he is, mentioned that it seemed like there was an era in music where so many bands followed the <span class="emphasis">blank the blank</span> naming pattern.</p> <p class="fs-4 text-light">After listing a few, Ben vowed to find all the BTB bands, and list them. This is that giant waste of time. </p>
+                <p class="text-light fs-3">All in all, <span class="emphasis">Blank The Blank</span> encompasses:
+                <p class="bullet-point fs-3 text-light"><span class="emphasis">-<%=numArtists%> Artists</span></p> <p class="bullet-point fs-3 text-light"><span class="emphasis">-<%=numAlbums%>  albums</span> </p><p class="bullet-point fs-3 text-light"><span class="emphasis">-<%= numGenres%> genres</span></p></p>
+            </div>
+        </div>
+		<div class="row w-100">
+            <div class="col-12 col-md-5 offset-md-7 px-3" id="btb-is">
+                <p class="text-light fs-3">
+                    Blank The Blank isn't a new diet fad, an ancient proverb about
+                    happiness, or your dad's Coca Cola.
+                </p>
+                <p class="text-light fs-2">
+                    Blank The Blank is a <span class="emphasis">MINDSET.</span>
+                </p>
+                <p class="text-light fs-2">
+                    Blank The Blank is a <span class="emphasis">LIFESTYLE</span>.
+                </p>
+                <p class="text-light fs-2">
+                    Blank The Blank is <span class="emphasis">EVERYTHING</span>.
+                </p>
+            </div>
+        </div>
+	</div>
+	<div class="band-text-container d-flex flex-column justify-content-center justify-content-md-normal flex-md-row">
+		<div class="intro-text intro-text-left d-flex d-sm-block justify-content-center">
+			<p class="band-name-text px-3" id="ntt1"></p>
+		</div>
+		<div class="intro-text intro-text-mid d-flex d-md-block justify-content-center">
+			<p class="band-name-text">The</p>
+		</div>
+		<div class="intro-text intro-text-right d-flex d-md-block justify-content-center">
+			<p class="band-name-text px-3" id="ntt2"></p>
+		</div>
+	</div>
+</div>
+<script>
+    const postIntro = document.querySelector("#postIntroContainer");
+	const navtoggle = document.querySelector('.navbar-toggler')
+	const dropdownToggle = document.querySelector('a.nav-link.dropdown-toggle')
+	dropdownToggle.addEventListener('click', () =>{
+		if(navtoggle.classList.contains('collapsed')){
+        postIntro.style.marginTop = '70px'
+      } else if(dropdownToggle.classList.contains('show')) {
+		postIntro.style.marginTop = '260px'
+	  } else {
+        postIntro.style.marginTop = '165px'
+      }
+	})
+    navtoggle.addEventListener('click', (e) =>{
+        console.log(e.target)
+      const target = e.target
+      if(navtoggle.classList.contains('collapsed')){
+        postIntro.style.marginTop = '70px'
+      } else if(dropdownToggle.classList.contains('show')) {
+		postIntro.style.marginTop = '204px'
+	  } else {
+        postIntro.style.marginTop = '165px'
+      }
+    })
+	const introText = document.querySelectorAll(".intro-text");
+	const mainContainer = document.querySelector("#main-page-container");
+	for (let node of introText) {
+		node.addEventListener("animationend", () => {
+			node.innerHTML = '<p class="band-name-text"> Blank </p>';
+			const introContainer = document.querySelector(".band-text-container");
+			introContainer.classList.add("fade-out");
+			introContainer.addEventListener("animationend", (e) => {
+				if (e.target.classList.contains("band-text-container")) {
+					introContainer.classList.add("hide");
+					postIntro.classList.remove("hide");
+					// mainContainer.classList.remove("justify-content-center", "align-items-center")
+				}
+			});
+		});
+	}
+</script>
+<%- include('./templates/footer.ejs') %>

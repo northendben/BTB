@@ -1,0 +1,387 @@
+.range{
+    -webkit-appearance:none;
+    background-color:transparent;
+    border-radius: 15px;
+}
+
+:root {
+    --accent-green: #389540;
+    --accent-yellow: #d8b802;
+}
+
+.btn-outline-success {
+    --bs-btn-color: var(--accent-green);
+    --bs-btn-border-color: var(--accent-green);
+    --bs-btn-hover-bg: var(--accent-green);
+    --bs-btn-hover-border-color: var(--accent-green)
+}
+.navbar {
+    background-color: #1b1b1b!important;
+}
+
+.pagination {
+    --bs-pagination-color: white;
+    --bs-pagination-bg: #1b1b1b;
+    --bs-pagination-active-bg: #1b1b1b;
+    --bs-link-color: var(--accent-green);
+    --bs-pagination-active-bg: var(--accent-green);
+    --bs-pagination-active-border-color: white;
+}
+.range:focus{
+    outline:none;
+}
+/* .range::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:14px;
+    height:14px;
+    background-color:#dde123;
+    border-radius:50%;
+    position:relative;
+    bottom:6px;
+    cursor:pointer;
+} */
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 2px solid #2f2f2f;
+    height: 20px;
+    width: 12px;
+    border-radius: 3px;
+    background: white;
+    margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  }
+
+.range::-webkit-slider-runnable-track {
+    width:100%;
+    height: 10px;
+    cursor:pointer;
+}
+
+.navbar .dropdown-item {
+    color: white!important;
+}
+
+.navbar a:hover{
+    background-color: #1b1b1b!important;
+}
+.navbar .dropdown-menu.solid {
+    background-color: #1b1b1b!important;
+
+}
+.navbar .dropdown-menu.transparent {
+    background-color: transparent!important;;
+
+}
+
+button a, .artist-info .artist-name a  {
+    text-decoration: none;
+    color: unset;
+}
+
+.artist-info .artist-name a:hover {
+    color:  --accent-yellow
+}
+
+.artist-album-name:hover {
+    cursor:pointer;
+    color:var(--accent-yellow);
+    text-decoration: underline;
+}
+
+
+button a:hover {
+    text-decoration: none;
+    color: unset;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+.errors-container {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('./images//manuel-sardo-dZOFaMG-0Q0-unsplash.jpg');
+    background-size: cover;
+}
+
+#main-page-container {
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('./images/samuel-regan-asante-5j7nQv-jaVM-unsplash.jpg');
+}
+
+@media (min-width: 768px){
+    #main-page-container {
+    height: 100vh;
+    }
+    .band-text-container{
+        height: 100px;
+    }
+
+    .mobile-verification {
+        display:none!important;
+    }
+
+    #single-artist-card {
+        width: 75%
+    }
+
+    /* .single-artist-page-container{
+            height: calc( 100vh - 71px);
+        } */
+    }
+
+@media(max-width: 768px){
+    #main-page-container {
+        height: 100%;
+        background-attachment: fixed;
+    }
+    .band-text-container {
+        height: 100vh;
+    }
+
+    #single-artist-card {
+        width: 100%
+    }
+
+    #postIntroContainer {
+        margin-top: 70px;
+    }
+
+    #postIntroContainer .row {
+        margin-bottom: 1rem!important;
+    }
+
+    .about-container p {
+        font-size: 20px!important;
+    }
+
+    li.list-group-item {
+        border-left-width: 1px!important;
+        padding: 25px;
+    }
+
+}
+
+
+.band-name-text {
+    color: white;
+    font-size: 60px;
+    position: relative;
+}
+
+.band-text-container {
+    position: relative;
+    width: 100%;
+}
+
+/* .intro-text-left {
+    width: 45%;
+    display:flex;
+    justify-content: end;
+}
+.intro-text-mid {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
+.intro-text-right {
+    width: 45%;
+    display: flex;
+} */
+
+#ntt1::before{
+    content: 'HORSE';
+    font-size: 60px;
+    animation-name: rotateText1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 4s;
+}
+
+#ntt2::before{
+    content: 'BAND';
+    font-size:60px;
+    animation-name: rotateText2;
+    animation-timing-function: ease-in-out;
+    animation-duration: 4s;
+}
+
+
+@keyframes rotateText1 {
+    33%{content: 'Young'; font-size: 60px;}
+    66%{content: 'Portugal.'; font-size: 60px;}
+    100%{content: 'Blank'; font-size: 60px;}
+}
+
+
+@keyframes rotateText2 {
+    33%{content: 'Giant'; font-size: 60px;}
+    66%{content: 'Man'; font-size: 60px;}
+    100%{content: 'Blank'; font-size: 60px;}
+}
+
+.fade-out {
+    animation: fadeOut 3s ease-in-out
+}
+
+@keyframes fadeOut {
+    0%{opacity: 100;}
+    100% {opacity: 0}
+}
+
+.hide {
+    display: none!important;
+}
+
+.emphasis {
+    font-weight: bold;
+    color: rgba(255,255,37,.8)
+}
+
+.artist-image {
+    width: 200px;
+    height: 200px;
+}
+
+.artist-image img {
+    width: 200px;
+    height: 200px;
+}
+
+.individual-artist-container {
+    /* border-bottom: 1px solid black;
+    border-left: 1px solid black; */
+    border: 2px solid #2f2f2f;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,.4);
+    align-items: normal;
+}
+
+.card {
+    background-color: black;
+}
+
+li.list-group-item{
+    background-color: black;
+    color: white;
+    border: 1px solid #2f2f2f;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.search-icon {
+    padding-top: 23px;
+    color: #1b1b1b;
+    right: 20px;
+}
+
+
+@media(max-width: 768px) {
+    .individual-artist-container, .artist-info {
+        align-items: center!important;
+    }
+
+    .non-mobile-verification {
+        display:none!important;
+    }
+
+    .genres {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0 10px;
+    }
+
+    #searchNav{
+        width: 100%!important;;
+    }
+}
+
+.accent-color {
+    color: rgba(255,255,37,.8)
+}
+
+.genre-button {
+    background-color: rgba(255,255,37,.8)!important;
+    border-color: rgba(0,0,0,.8);
+    color: black
+}
+
+.navbar-transparent {
+    background: transparent!important;
+    position: absolute;
+}
+
+.nav-link, .navbar-brand {
+    color: white!important;
+}
+
+#wi-btb {
+    border-left: 1px solid rgba(255,255,37,.5);
+    border-top: 1px solid rgba(255,255,37,.5)
+}
+
+#btb-is {
+    border-right: 1px solid rgba(255,255,37,.5);
+    border-bottom: 1px solid rgba(255,255,37,.5)
+}
+
+.mobile-verification, .non-mobile-verification {
+    color: var(--accent-green);
+}
+/* #postIntroContainer {
+    margin-top: 25%;
+} */
+
+/* @keyframes moveText2 {
+    0% {transform: translateY(0px)}
+    100%{transform: translateY(-40px);}
+
+} */
+
+
+
+/* .band-name-text span#ntt1::before{
+    content: 'Horse';
+    font-size: 60px;
+    animation-name: rotateText1;
+    animation-duration: 10s;
+    color: red;
+    position: relative;
+}
+
+.the-text {
+    position: relative;
+
+}
+
+.band-name-text span#ntt2::before{
+    content: 'Band';
+    font-size: 60px;
+    animation-name: rotateText2;
+    animation-duration: 10s;
+    color: red;
+}
+
+.band-name-text .the-text {
+    font-style: italic;
+}
+
+.band-name-text {
+    position: relative;
+}
+
+
+@keyframes rotateText1 {
+    0% {transform: translateY(0)}
+    100% {transform: translateY(-40px); opacity:1;}
+} */
+
+/* @keyframes rotateText2 {
+    0% {font-size: 60px; opacity: 1}
+    25% {font-size: 36px; opacity: 0; position: relative; bottom: 30px}
+    50% {font-size: 60px; opacity: 1; content: 'Giant'}
+    75% {font-size: 36px; opacity: 0}
+    100% {font-size: 60px; opacity: 1; content: 'Man'}
+} */
