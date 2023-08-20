@@ -1,3 +1,6 @@
+if(process.env.NODE_env !=="production"){
+    require('dotenv').config()
+}
 const { MongoClient, TopologyType, ObjectId } = require("mongodb");
 const express = require("express");
 const path = require("path");
@@ -13,7 +16,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "/static")));
 app.use(express.json());
 
-const dbUrl = "mongodb://127.0.0.1:27017/musicBrainz";
+// const dbUrl = "mongodb://127.0.0.1:27017/musicBrainz";
+const dbUrl = process.env.db_connection_string
 const client = new MongoClient(dbUrl);
 const dbName = "musicBrainz";
 
