@@ -1,13 +1,11 @@
 if(process.env.NODE_env !=="production"){
     require('dotenv').config()
 }
-console.log(process.env.db_connection_string)
-const { MongoClient, TopologyType, ObjectId } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const express = require("express");
 const path = require("path");
 const ejs = require("ejs");
 const app = express();
-const mongoose = require("mongoose");
 const errorHandler = require("./static/errors");
 const { error } = require("console");
 // const db = require('./db')
@@ -25,13 +23,11 @@ const dbName = "BTB";
 let db;
 let artists;
 let albums;
-// let artists_copy
 
 async function connectDb() {
 	await client.connect();
 	db = client.db(dbName);
 	artists = db.collection("artists");
-	// artists_copy = db.collection('artists_copy')
 	albums = db.collection("albums");
 
 }
@@ -62,7 +58,6 @@ app.get(
 		let isVerifiedArtists = false;
 		const defaultNumOfPages = 1;
 		const { query } = req;
-		console.log(query);
 		if (Object.keys(query).length > 0) {
 			for (let key of Object.keys(query)) {
 				if (key == "genre") {
@@ -133,7 +128,6 @@ app.get(
 			}
 		);
 		const queryDocumentCount = await artists.count(pipelineInsertion["$match"]);
-		console.log(queryDocumentCount);
 		const artistData = await artists.aggregate(pipeline).toArray();
 		let numOfPages = Math.round(queryDocumentCount / 50);
 		numOfPages > defaultNumOfPages
@@ -212,39 +206,10 @@ app.get(
 				}
 			}
 		];
-		console.log(id);
 		const artist = await artists.aggregate(pipeline).toArray();
-		console.log(artist);
-		res.render('SpotifyPlay', {title: artist.name, artist:artist[0], paginationData: {isVerifiedArtists: true}});
+		res.render('singleArtist', {title: artist.name, artist:artist[0], paginationData: {isVerifiedArtists: true}});
 	})
 );
-
-app.get('/spotify', errorHandler(async(req,res)=>{
-	let myHeaders = new Headers();
-	myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-	myHeaders.append("Cookie", "__Host-device_id=AQDe0QMZRc8FbrL2nTQXBcE0gbkPCRfQE9qH_Gr5ugwXiZVti_paKA6bjSj1Lj55tt10kIwOCNjA8R-MGG0omN8h83f56lZfmYM; sp_tr=false");
-
-	let urlencoded = new URLSearchParams();
-	urlencoded.append("grant_type", "client_credentials");
-	urlencoded.append("client_id", process.env.spotify_client_id);
-	urlencoded.append("client_secret", process.env.spotify_client_secret);
-
-	let requestOptions = {
-	method: 'POST',
-	headers: myHeaders,
-	body: urlencoded,
-	redirect: 'follow'
-};
-
-	let request = await fetch("https://accounts.spotify.com/api/token", requestOptions)
-	console
-	if(request.status===200){
-		request = await request.json()
-		const token = request.access_token
-		console.log(typeof(token))
-		res.render('SpotifyPlay', {title: 'spotifyPlayGround', paginationData: {isVerifiedArtists: true}, token:token})
-	}
-}))
 
 app.get(
 	"/search/artists",
@@ -341,6 +306,10 @@ app.get(
 	})
 );
 
+app.get('/about', errorHandler(async (req,res) => {
+	res.render('about', {title: 'About Blank The Blank', paginationData: {isVerifiedArtists: false}})
+}))
+
 // app.get('/databaseclean', async (req,res) => {
 // 	const dupes = await artists_copy.aggregate([{$group: {_id: '$name', 'count': {$sum: 1}}}, {$match: {'count': {$gt: 1}}}]).toArray()
 // 	let namesToChange = []
@@ -380,18 +349,3 @@ connectDb()
 			console.log("hey");
 		})
 	);
-
-// app.get('/mongoose', async (req,res) => {
-//     const db = await mongoose.connect(dbUrl)
-//     const result = await db.connection.collection('artists').find({}).toArray()
-//     res.send(result)
-
-// })
-
-// main().catch(err => console.log(err, 'Your connection failed'));
-// async function main() {
-//     // await mongoose.connect('mongodb://127.0.0.1:27017/yelpCamp')
-//     await mongoose.connect(dbUrl)
-//     console.log('Connected')
-// }
-// main()

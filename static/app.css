@@ -4,9 +4,43 @@
     border-radius: 15px;
 }
 
+.accordion-item, .accordion-button {
+    color: white;
+    background-color: #1b1b1b!important;
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    --bs-accordion-active-color: white;
+    --bs-accordion-btn-focus-border-color: var(--accent-yellow);
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem var(--accent-yellow-faded);
+}
+
+.profile-picture {
+    border-radius: 20px;
+}
+
+.icon-container, .core-values-container {
+    border-bottom: 1px solid white;
+}
+
+.icon-container .bio-keyword {
+    text-align:start
+}
+
+.emoji {
+    height:30px;
+}
+
+
+.pagination .page-link:hover{
+    z-index: 2;
+    color: var(--accent-green);
+    background-color: white;
+}
+
 :root {
     --accent-green: #389540;
     --accent-yellow: #d8b802;
+    --accent-yellow-faded: rgba(216, 184, 2, .7);
 }
 
 .btn-outline-success {
@@ -20,6 +54,7 @@
 }
 
 .pagination {
+    --bs-pagination-hover-color: var(--accent-green);
     --bs-pagination-color: white;
     --bs-pagination-bg: #1b1b1b;
     --bs-pagination-active-bg: #1b1b1b;
@@ -236,6 +271,10 @@ body {
 .emphasis {
     font-weight: bold;
     color: rgba(255,255,37,.8)
+}
+
+.yellow-accent{
+    color: var(--accent-yellow)!important;
 }
 
 .artist-image {
