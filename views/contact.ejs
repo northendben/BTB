@@ -1,0 +1,40 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/solidNav.ejs') %>
+<div class="e-mail-confirmation-message d-none flex-grow-1 justify-content-center align-items-center">
+        <p id="successMsg" class="d-none fs-3">Your email sent successfully</p>
+        <p id="failMsg" class="d-none fs-3">Sorry, there was an error sending. Please refresh and try again.</p>
+</div>
+<div class="col-md-10 col-12 offset-md-1 d-flex flex-column justify-content-center align-items-center flex-grow-1" id="contactWrapper">
+    <h3 class="emphasis">We'd love to hear from you</h3>
+    <p class="fs-5 text-center mb-3">Please fill out the form below, and we will get back to you as soon as possible.</p>
+    <div class="card px-3 px-md-0 col-12 col-md-6 mt-4">
+        <form action="/send-email" class="needs-validation" id="contactForm" novalidate method="POST">
+            <div class="form-floating mb-3">
+                <input type="email" name="userEmail" id="userEmail" class="form-control" required>
+                <label for="userEmail">Your Email</label>
+                <div class="invalid-feedback">Please enter a valid e-mail address.</div>
+            </div>
+            <div class="form-floating mb-3">
+                <select name="subject" id="subject" class="form-select form-select-sm" required >
+                    <option value = ''selected disabled>Please Select One</option>
+                    <option value="General Contact">General Contact</option>
+                    <option value="Professional Opportunity">Professional Opportunity</option>
+                    <option value="Incorrect Data">Incorrect Data</option>
+                    <option value="Request">Request</option>
+                </select>
+                <label for="subject">Subject</label>
+                <div class="invalid-feedback">Please select an option</div>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea name="body" id="body" cols="30" class="form-control" required></textarea>
+                <label for="body">Message</label>
+                <div class="invalid-feedback">Please enter a message.</div>
+            </div>
+            <div class="submit-button-container d-flex w-100 justify-content-center"><button class="btn btn-sm btn-outline ya-button">Submit</button></div>
+        </form>
+    </div>
+</div>
+<script src="/JS/validateForm.js"></script>
+<script src="/JS/handleSearchSubmit.js"></script>
+<script src="/JS/handleContactSubmission.js"></script>
+<%- include('./templates/footer.ejs') %>

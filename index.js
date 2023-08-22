@@ -8,6 +8,8 @@ const ejs = require("ejs");
 const app = express();
 const errorHandler = require("./static/errors");
 const { error } = require("console");
+const sgMail = require('@sendgrid/mail')
+const sendEmail = require('./static/JS/sendEmail')
 // const db = require('./db')
 
 app.set("view engine", "ejs");
@@ -320,6 +322,21 @@ app.get('/about', errorHandler(async (req,res) => {
 // 	const updates = await artists_copy.updateMany({'name': {$in:namesToChange}}, {$set: {spotify_id: null, genres: null, popularity: null, images: null}})
 // 	res.send(updates)
 // })
+
+app.get('/contact', errorHandler(async (req,res) =>{
+	res.render('contact', {title: 'Contact', paginationData: {isVerifiedArtists: false}})
+}))
+
+app.post('/send-email', errorHandler(async (req,res) =>{
+	const emailData = req.body
+	console.log(emailData)
+	const sentEmail = await sendEmail(emailData)
+	console.log(sentEmail)
+	if(sentEmail.status === 200){
+		return res.status(sentEmail.status).send({message: sentEmail.message})
+	}
+	return res.status(sentEmail.status).send({message: sentEmail.message})
+}))
 
 app.all("*", async (req, res, next) => {
 	res.render("errors", {
