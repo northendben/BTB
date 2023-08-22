@@ -1,0 +1,107 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/solidNav.ejs') %>
+<div class=" col-10 col-md-8 offset-1 offset-md-2 mt-5">
+    <div class="about-intro">
+      <h2 class="yellow-accent mt-2">Thanks for checking out Blank The Blank. </h2> 
+      <h3 class="yellow-accent mt-4">We hope you're enjoying this silly little project.</h3>
+      <p class="mt-4">This is a fun project that I built to have a laugh with a friend, and keep some of my skills sharp. It is in no way intended to be an official listing of artists, and because of the way data was obtained, there is no guarantee 100% of the data is correct. We feel pretty good about the majority of the data, but would love your help maintaining it. If you see data that is not correct, please send an email to blanktheblank@gmail.com with a link to the page, and a note on what is wrong.</p>
+    </div>
+    <div class="accordion about-more-info mt-md-4" id="aboutAccordianContainer">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              <strong>Learn More About The Data</strong>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <p class="fs-6">This is a fun project that I built to have a laugh with a friend, and keep some of my skills sharp. It is in no way intended to be an official listing of artists, and because of the way data was obtained, there is no guarantee 100% of the data is correct. We feel pretty good about the majority of the data, but would love your help maintaining it. If you see data that is not correct, please send an email to blanktheblank@gmail.com with a link to the page, and a note on what is wrong.</p>
+
+              <h5 class="yellow-accent">How was the data obtained?</h5>
+              <p class="fs-6">Artist data was obtained from the MusicBrainz API. Music brainz is similar to Wikipedia, and is an open encyclopedia for music metadata. The MusicBrainz API was selected because it returned a total count of all results matching your query, making scripted pagination easy. Moreover, the MusicBrainz API returned a large, consistently paginated, and robust dataset, while Spotify and Last.FM returned a finite set of results, "optimized" by a releavance algorithm that meant obtaining a complete dataset would be impossible. </p>
+
+              <p class="fs-6">Using a simple Python script, calls were made the MusicBrainz artist search API with a query of "the". Results were returned 100 entries at a time, and parsed with a regex looking for names that fit the Blank The Blank pattern. Basically, any results that contained any number of alphanumeric characters followed by a space, followed by the word the, followed by a space, completed by any number of alphanumeric characters. The total number of results matching the query is also returned with each request, meaning we knew how many requests to make.</p>
+
+              <p class="fs-6">After parsing a result set, the script adds any matching artists to a MongoDB database with a pre-defined schema, and makes a request to the MusicBrainz API for the next 100 results. The script repeats these actions until all possible results have been analyzed.</p>
+
+              <p class="fs-6">After obtaining the list of databases, additional metadata was taken from the Spotify Search API. Another Python script retrieved data from the artist database, and called the Spotify search API with the artist names.
+              </p>
+
+              <p class="fs-6">Unfortunately, gathering this additional metadata also proved tricky, for a variety of reasons:
+                <ul class="list-group-numbered px-0 px-md-3">
+                  <li class="list-group-item yellow-accent px-4">Spotify's search API prioritizes some proprietary alogrithm over string matching when returning results. This means that sometimes, even if there is a direct match for your search term, it may not be the first result returned or even in the first result set.</li>
+                  <li class="list-group-item yellow-accent px-4">Because of MusicBrainz nature as an open, public, database, not every artist in the MusicBrainz database is listed on Spotify.</li>
+                  <li class="list-group-item yellow-accent px-4">Differences in characters (for example, using a hyphen versus a hyphen minus versus a dash) meant that search results came up empty. One example was At The Drive-In. Spotify's API returned a hyphen minus, while MusicBrainz used a hyphen.</li>
+                  <li class="list-group-item yellow-accent px-4">There are many occasions where there are multiple unique artists who share the same name. Unfortunately, there is no overlapping metadata between MusicBrainz and Spotify to programactially determine which artist is which.</li>
+                </ul>
+              </p>
+              <p class="fs-6">In order to combat these challenges, data was scraped from Spotify in multiple stages. During the first stage, data was only added from Spotify if there was an exact string match on the artist names in both Spotify and the BTB database.
+              </p>
+              <p class="fs-6">
+                During the second stage, non-alphanumeric characters were removed from the Spotify API results and BTB result, resulting in a comparison against only alphanumeric strings to avoid issues like the hyphen minus vs hyphen.</p>
+              <p class="fs-6">Finally, in the final scraping stage, Python's difflib library was used to compare the similarity of the artist names from both sources. If there was a 95% match, the metadata from Spotify was added to the database. 
+              </p>
+              <p class="fs-6">Any artists in the BTB database that did not match an artist on Spotify in one of the aforementioned stages did not receive any additional metadata, and will display "No other information available" on our artists page. Any artist in the "Verified Artist" section has been linked to an artist on Spotify. After completing the aritsts database, Spotify's API was used to pull in album information from artists, matching on the Spotify ID. This is a straightforward process, once again utilizing a Python script and the Python requests library. </p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <strong>Learn More About Person Behind This</strong>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="dev-artist-container d-flex justify-content-center">
+                <img src="/images/Ben_Final1.jpg" alt="" class="profile-picture">
+              </div>
+              <div class="bio-details text-center mt-2">
+                <p class="fs-6">My name is <span class="emphasis">Benjamin Persitz.</span> I am a born and raised Cascadian <span><img src="/images/phojr99zbqr31.png" class="emoji" alt=""></span> with two cats, and a great partner. Some words to describe me as a human are:</p>
+                <div class="icon-container">
+                <div class="mt-1 px-2 d-flex justify-content-center">
+                    <div class="offset-1  "><i class="fa-solid fa-person-hiking"></i></div>
+                    <div class="col-md-3 col-7 bio-keyword"><p class="px-3 emphasis"> Avid Hiker</p></div>
+                  </div>
+                <div class="mt-1 px-2 d-flex justify-content-center">
+                    <div class="offset-1  "><i class="fa-solid fa-futbol"></i></div>
+                    <div class="col-md-3 col-7 bio-keyword"><p class="px-3 emphasis"> Futbol Supporter</p></div>
+                  </div>
+                <div class="mt-1 px-2 d-flex justify-content-center">
+                    <div class="offset-1  "><i class="fa-solid fa-mug-saucer"></i></div>
+                    <div class="col-md-3 col-7 bio-keyword"><p class="px-3 emphasis">Amateur Barista</p></div>
+                  </div>
+                  <div class="mt-1 px-2 d-flex justify-content-center">
+                    <div class="offset-1  "><i class="fa-solid fa-pizza-slice"></i></div>
+                    <div class="col-md-3 col-7 bio-keyword"><p class="px-3 emphasis"> Food and Craft Beer enthusiast</p></div>
+                  </div>
+                <div class="mt-1 px-2 d-flex justify-content-center">
+                    <div class="offset-1"><i class="fa-solid fa-person-biking"></i></div>
+                    <div class="col-md-3 col-7 bio-keyword"><p class="px-3 emphasis"> Cyclist</p></div>
+                  </div>
+                </div>
+                <div class="core-values-container">
+                  <h3 class="mt-3"><strong>Core Values</strong></h3>
+                  <p class="fs- text-decoration-underline emphasis">Curiosity<p> <p class="fs-6 mt-0">I always approach everything with an open mind, and desire for true understanding. I am not happy staying at the surface, and want to explore things at a deep level.
+                    <p class="fs-6 text-decoration-underline emphasis">Commitment </p>
+                    <p class="fs-6 mt-0">
+                      If I do something, I am going to put all of my effort into it.
+                    </p>
+                    <p class="fs-6 text-decoration-underline emphasis">Compassion</p>
+                    <p class="fs-6 mt-0">We are all human beings, trying to do our best. I always try to consider others, and believe that we need to take care of each other.</p>
+                </div>
+                <div class="professional-container mt-3">
+                  <h3 class="mt-3"><strong>Professional Experience</strong></h3>
+                  <p class="fs-6">As a professional, I am a technically oriented customer success and professional services veteran who specializes in creating scalable, tailor-made experiences in order to meet client needs. I focus on driving value realization through the translation of a deep understanding of available software technologies and client objectives into best practice consultation and documented technical strategy.</p>
+                  <p class="fs-6">I have experience <span class="emphasis">leading teams and building scalable processes</span> in <span class="emphasis">Technical Support </span>and <span class="emphasis">Professional Services</span>, and working in high pressure situations with <span class="emphasis">enterprise clients</span> on the world's biggest events.</p>
+                  <p class="fs-6">I am a code-dabbler with full stack development knowledge including <span class="emphasis">Javascript</span> (NodeJS, Vanilla Javascript, React),<span class="emphasis"> Python</span> (Flask), and SQL and NoSQL Databases such as MongoDB and MySQL. I have extensive experience working with <span class="emphasis">REST APIs</span> in both a Support and <span class="emphasis">Technical Account Management</span> role. I mostly code because I enjoy it, but I've also used Python and Javascript in my day to day job in the past.</p>
+                  <p class="fs-6">I'm always open to new opportunities. Please <span class="emphasis">contact me</span> if you want to chat, or have an interesting opportunity to discuss.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+<script src="/JS/handleSearchSubmit.js"></script>
+<%- include('./templates/footer.ejs') %>
