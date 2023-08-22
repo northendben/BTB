@@ -1,7 +1,12 @@
 .range{
     -webkit-appearance:none;
+    appearance: none;
     background-color:transparent;
     border-radius: 15px;
+}
+
+textarea.form-control {
+    height: 275px!important;
 }
 
 .accordion-item, .accordion-button {
@@ -134,6 +139,41 @@ body {
     padding: 0;
     background-color: black;
     color: white;
+}
+
+.contact-info-container a, .contact-info-container a:hover {
+    text-decoration: none;
+    color: yellow;
+    font-size: 24px;
+}
+
+.ya-button  {
+    border-color: var(--accent-yellow);
+    color:white;
+}
+
+.ya-button:hover{
+    color: var(--accent-yellow);
+    border-color:white;
+}
+.form-select, .form-select-sm{
+    background-color: black!important;
+}
+
+.form-select:focus, .form-select-sm:focus{
+    background-color: black!important;
+    border-color: var(--accent-yellow);
+}
+
+.form-floating input, .form-floating textarea, .form-floating select {
+    background-color: transparent;
+    color: white!important;
+}
+
+
+.form-floating input:focus, .form-floating textarea:focus, .form-floating select:focus{
+    background-color: transparent;
+    border-color: var(--accent-yellow);
 }
 .errors-container {
     height: 100vh;
