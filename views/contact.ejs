@@ -31,13 +31,14 @@
                 <label for="body">Message</label>
                 <div class="invalid-feedback">Please enter a message.</div>
             </div>
-            <div class="submit-button-container d-flex w-100 justify-content-center flex-column align-items-center"><button class="mb-4 btn btn-sm btn-outline ya-button">Submit</button>
+            <div class="submit-button-container d-flex w-100 justify-content-center flex-column align-items-center"><button class="mb-4 btn btn-sm btn-outline ya-button"  id="contactFormSubmit" disabled>Submit</button>
                 <p class="text-danger d-none" id="proveLifeMsg">Please indicate that you are not a robot.</p>
-                <div class="g-recaptcha " data-theme="dark" data-sitekey="6LfXYsknAAAAAPTBVp-3eykyYczDQg9pviZKy6if"></div></div>
+                <div class="g-recaptcha " data-theme="dark" data-sitekey="6LfXYsknAAAAAPTBVp-3eykyYczDQg9pviZKy6if" data-callback="checkValidToken" data-expired-callback="updateExpiredToken"></div></div>
         </form>
     </div>
 </div>
 <script src="/JS/validateForm.js"></script>
 <script src="/JS/handleSearchSubmit.js"></script>
 <script src="/JS/handleContactSubmission.js"></script>
+<script src="/JS/antiRobot.js"></script>
 <%- include('./templates/footer.ejs') %>

@@ -15,24 +15,22 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              <p class="fs-6">This is a fun project that I built to have a laugh with a friend, and keep some of my skills sharp. It is in no way intended to be an official listing of artists, and because of the way data was obtained, there is no guarantee 100% of the data is correct. We feel pretty good about the majority of the data, but would love your help maintaining it. If you see data that is not correct, please send an email to blanktheblank@gmail.com with a link to the page, and a note on what is wrong.</p>
-
               <h5 class="yellow-accent">How was the data obtained?</h5>
-              <p class="fs-6">Artist data was obtained from the MusicBrainz API. Music brainz is similar to Wikipedia, and is an open encyclopedia for music metadata. The MusicBrainz API was selected because it returned a total count of all results matching your query, making scripted pagination easy. Moreover, the MusicBrainz API returned a large, consistently paginated, and robust dataset, while Spotify and Last.FM returned a finite set of results, "optimized" by a releavance algorithm that meant obtaining a complete dataset would be impossible. </p>
+              <p class="fs-6">Artist data was obtained from the MusicBrainz API. Music brainz is similar to Wikipedia, and is an open encyclopedia for music metadata. The MusicBrainz API was selected because it returned a total count (with no ascertainable limit) of all results matching a search query. This meant that we could know how many results we had to parse, and obtain a complete dataset. Originally, the plan was to use Spotify or Last.FM APIs, but they returned a limited number of results, without counts, and did not consistently return their data in the same order for pagination.</p>
 
               <p class="fs-6">Using a simple Python script, calls were made the MusicBrainz artist search API with a query of "the". Results were returned 100 entries at a time, and parsed with a regex looking for names that fit the Blank The Blank pattern. Basically, any results that contained any number of alphanumeric characters followed by a space, followed by the word the, followed by a space, completed by any number of alphanumeric characters. The total number of results matching the query is also returned with each request, meaning we knew how many requests to make.</p>
 
               <p class="fs-6">After parsing a result set, the script adds any matching artists to a MongoDB database with a pre-defined schema, and makes a request to the MusicBrainz API for the next 100 results. The script repeats these actions until all possible results have been analyzed.</p>
 
-              <p class="fs-6">After obtaining the list of databases, additional metadata was taken from the Spotify Search API. Another Python script retrieved data from the artist database, and called the Spotify search API with the artist names.
+              <p class="fs-6">After obtaining the list of artists, additional metadata was taken from the Spotify Search API. Another Python script retrieved data from the artist database, and called the Spotify search API with the artist names.
               </p>
 
               <p class="fs-6">Unfortunately, gathering this additional metadata also proved tricky, for a variety of reasons:
                 <ul class="list-group-numbered px-0 px-md-3">
-                  <li class="list-group-item yellow-accent px-4">Spotify's search API prioritizes some proprietary alogrithm over string matching when returning results. This means that sometimes, even if there is a direct match for your search term, it may not be the first result returned or even in the first result set.</li>
+                  <li class="list-group-item yellow-accent px-4">Spotify's search API prioritizes some proprietary alogrithm over string matching when returning results. This means that sometimes, and especially if searching an obscure artist, even if there is a direct match for your search term, it may not be the first result returned or even in the first result set.</li>
                   <li class="list-group-item yellow-accent px-4">Because of MusicBrainz nature as an open, public, database, not every artist in the MusicBrainz database is listed on Spotify.</li>
-                  <li class="list-group-item yellow-accent px-4">Differences in characters (for example, using a hyphen versus a hyphen minus versus a dash) meant that search results came up empty. One example was At The Drive-In. Spotify's API returned a hyphen minus, while MusicBrainz used a hyphen.</li>
-                  <li class="list-group-item yellow-accent px-4">There are many occasions where there are multiple unique artists who share the same name. Unfortunately, there is no overlapping metadata between MusicBrainz and Spotify to programactially determine which artist is which.</li>
+                  <li class="list-group-item yellow-accent px-4">Differences in characters (for example, using a hyphen versus a hyphen minus versus a dash) meant that search results came up empty. One example was At The Drive-In. Spotify's API returned a hyphen minus, while MusicBrainz used a hyphen. This meant our regex matching names returned a false negative result, and additional metadata was not retrieved.</li>
+                  <li class="list-group-item yellow-accent px-4">There are many occasions where there are multiple unique artists who share the same name. Unfortunately, there is no overlapping metadata between MusicBrainz and Spotify to programactially determine which artist is which. This is something we hope to find a way to address in the future.</li>
                 </ul>
               </p>
               <p class="fs-6">In order to combat these challenges, data was scraped from Spotify in multiple stages. During the first stage, data was only added from Spotify if there was an exact string match on the artist names in both Spotify and the BTB database.
@@ -56,7 +54,7 @@
               <div class="dev-artist-container d-flex justify-content-center">
                 <img src="/images/Ben_Final1.jpg" alt="" class="profile-picture">
               </div>
-              <div class="contact-info-container d-flex justify-content-center text-center col-6 offset-3 col-md-2 offset-md-5">
+              <div class="contact-info-container d-flex justify-content-center text-center col-6 offset-3 col-md-2 offset-md-5 mt-2">
                 <div class="col-4"><a class="" href="/contact"><i class="fa-solid fa-envelope"></i></a></div>
                 <div class="col-4"><a class="" href="https://www.linkedin.com/in/benjamin-joseph-persitz"><i class="fa-brands fa-linkedin"></i></a></div>
                 <div class="col-4"><a class="" href="https://github.com/northendben"><i class="fa-brands fa-github"></i></a></div>

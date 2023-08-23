@@ -15,10 +15,8 @@ async function sendEmail(emailData){
         replyTo: emailData.userEmail,
         text: emailData.body
     }
-    console.log(msg)
     try{
         await sgMail.send(msg)
-        console.log('in the try')
         return {status: 200, message: 'Email Sent Successfully'}
     } catch (e){
         console.log(e)

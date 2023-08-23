@@ -49,45 +49,5 @@
 		</div>
 	</div>
 </div>
-<script>
-    const postIntro = document.querySelector("#postIntroContainer");
-	const navtoggle = document.querySelector('.navbar-toggler')
-	const dropdownToggle = document.querySelector('a.nav-link.dropdown-toggle')
-	dropdownToggle.addEventListener('click', () =>{
-		if(navtoggle.classList.contains('collapsed')){
-        postIntro.style.marginTop = '70px'
-      } else if(dropdownToggle.classList.contains('show')) {
-		postIntro.style.marginTop = '260px'
-	  } else {
-        postIntro.style.marginTop = '165px'
-      }
-	})
-    navtoggle.addEventListener('click', (e) =>{
-        console.log(e.target)
-      const target = e.target
-      if(navtoggle.classList.contains('collapsed')){
-        postIntro.style.marginTop = '70px'
-      } else if(dropdownToggle.classList.contains('show')) {
-		postIntro.style.marginTop = '204px'
-	  } else {
-        postIntro.style.marginTop = '165px'
-      }
-    })
-	const introText = document.querySelectorAll(".intro-text");
-	const mainContainer = document.querySelector("#main-page-container");
-	for (let node of introText) {
-		node.addEventListener("animationend", () => {
-			node.innerHTML = '<p class="band-name-text"> Blank </p>';
-			const introContainer = document.querySelector(".band-text-container");
-			introContainer.classList.add("fade-out");
-			introContainer.addEventListener("animationend", (e) => {
-				if (e.target.classList.contains("band-text-container")) {
-					introContainer.classList.add("hide");
-					postIntro.classList.remove("hide");
-					// mainContainer.classList.remove("justify-content-center", "align-items-center")
-				}
-			});
-		});
-	}
-</script>
+<script src="/JS/indexPageHandler.js"></script>
 <%- include('./templates/footer.ejs') %>
