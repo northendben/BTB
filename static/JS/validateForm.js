@@ -2,13 +2,12 @@ const form = document.querySelector('.needs-validation')
 form.addEventListener('submit', validateForm)
 function validateForm(e){
     e.preventDefault()
-    if (!form.checkValidity() || form.subject.value === 'Please Select One'){
-        // if(form.subject.value === 'Please Select One'){
-        //     const selectErrorMessage = document.querySelector('#subject')
-        //     selectErrorMessage.classList.add('is-invalid')
-        //     selectErrorMessage.nextElementSibling.style.display = 'block'
-        // }
+    if (!form.checkValidity() || form.subject.value === 'Please Select One' || grecaptcha.getResponse() === ''){
         form.classList.add('was-validated')
+        if(grecaptcha.getResponse() ===''){
+            const showTarget = document.querySelector('#proveLifeMsg')
+            showTarget.classList.remove('d-none')
+        }
     } else {
     submitForm(form)
     }

@@ -1,5 +1,6 @@
 <%- include('./templates/header.ejs') %>
 <%- include('./templates/solidNav.ejs') %>
+<script src="https://www.google.com/recaptcha/api.js"> </script>
 <div class="e-mail-confirmation-message d-none flex-grow-1 justify-content-center align-items-center">
         <p id="successMsg" class="d-none fs-3">Your email sent successfully</p>
         <p id="failMsg" class="d-none fs-3">Sorry, there was an error sending. Please refresh and try again.</p>
@@ -30,7 +31,9 @@
                 <label for="body">Message</label>
                 <div class="invalid-feedback">Please enter a message.</div>
             </div>
-            <div class="submit-button-container d-flex w-100 justify-content-center"><button class="btn btn-sm btn-outline ya-button">Submit</button></div>
+            <div class="submit-button-container d-flex w-100 justify-content-center flex-column align-items-center"><button class="mb-4 btn btn-sm btn-outline ya-button">Submit</button>
+                <p class="text-danger d-none" id="proveLifeMsg">Please indicate that you are not a robot.</p>
+                <div class="g-recaptcha " data-theme="dark" data-sitekey="6LfXYsknAAAAAPTBVp-3eykyYczDQg9pviZKy6if"></div></div>
         </form>
     </div>
 </div>
