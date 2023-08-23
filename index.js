@@ -327,6 +327,27 @@ app.get('/contact', errorHandler(async (req,res) =>{
 	res.render('contact', {title: 'Contact', paginationData: {isVerifiedArtists: false}})
 }))
 
+app.post('/anti-robot', errorHandler(async(req,res) => {
+	const {userToken} = req.body
+	const verificationObject = {
+		response: userToken,
+		secret: process.env.captchaSecret
+	}
+	const verifyWithGoogle = await fetch('https://www.google.com/recaptcha/api/siteverify',{
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		body: new URLSearchParams(verificationObject)
+	})
+	if(verifyWithGoogle.status === 200){
+		googleResponse = await verifyWithGoogle.json()
+		googleResponse.success === true ? res.status(200).send({msg: 'Token valid'}): res.status(400).send({msg: 'Invalid token.'})
+	} else {
+		res.status(500).send({msg:'Something went wrong on the server.'})
+	}
+}))
+
 app.post('/send-email', errorHandler(async (req,res) =>{
 	const emailData = req.body
 	console.log(emailData)
