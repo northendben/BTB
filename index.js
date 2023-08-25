@@ -1,6 +1,7 @@
 if(process.env.NODE_env !=="production"){
     require('dotenv').config()
 }
+const port = process.env.PORT || 3000
 const { MongoClient, ObjectId } = require("mongodb");
 const express = require("express");
 const path = require("path");
@@ -382,8 +383,7 @@ connectDb()
 	.then(console.log("DB Connected"))
 	.catch((e) => console.log(e))
 	.then(() =>
-		app.listen(3000, () => {
+		app.listen(port, "0.0.0.0", () => {
 			console.log("App is running");
-			console.log("hey");
 		})
 	);

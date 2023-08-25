@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
 sgKey = process.env.sgKey
-
 sgMail.setApiKey(sgKey)
 
 async function sendEmail(emailData){
