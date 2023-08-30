@@ -59,8 +59,13 @@ app.get(
 		let pipelineInsertion = { $match: {} };
 		let pipeline = [];
 		let isVerifiedArtists = false;
+		let sortOrder = {name: 1}
+		const defaultSort = 1
 		const defaultNumOfPages = 1;
 		const { query } = req;
+		let incomingSearchParams = new URLSearchParams(query)
+		incomingSearchParams.delete('skip')
+		let queryStringWithoutSkip = incomingSearchParams.toString()
 		if (Object.keys(query).length > 0) {
 			for (let key of Object.keys(query)) {
 				if (key == "genre") {
@@ -71,14 +76,26 @@ app.get(
 					pipelineInsertion["$match"]["spotify_id"] = { $exists: true };
 				}
 				if (key == "skip") numToSkip = Number(query["skip"]);
+				if (key == "sort"){
+					if(Object.keys(query).includes('order')){
+						let sortKey = query[key]
+						if(query['order'] === 'ascending'){
+						sortOrder = {[sortKey]: 1}
+						} else {
+							sortOrder = {[sortKey]: -1}
+						}
+					} else {
+						let sortKey = query[key]
+						sortOrder ={[sortKey]: defaultSort}
+					}
+				}
+				console.log(sortOrder)
 			}
 			pipeline.push(pipelineInsertion);
 		}
 		pipeline.push(
 			{
-				$sort: {
-					name: 1
-				}
+				$sort: sortOrder
 			},
 			{
 				$skip: numToSkip
@@ -130,6 +147,7 @@ app.get(
 				}
 			}
 		);
+		console.log(pipeline)
 		const queryDocumentCount = await artists.count(pipelineInsertion["$match"]);
 		const artistData = await artists.aggregate(pipeline).toArray();
 		let numOfPages = Math.round(queryDocumentCount / 50);
@@ -143,7 +161,8 @@ app.get(
 				isVerifiedArtists: isVerifiedArtists,
 				skip: numToSkip,
 				numOfPages: numOfPages,
-				currentPage: numToSkip / 50 + 1
+				currentPage: numToSkip / 50 + 1,
+				queryString: queryStringWithoutSkip
 			}
 		});
 	})
