@@ -81,6 +81,29 @@ textarea.form-control {
     cursor:pointer;
 } */
 
+button.btn-outline#filterButton {
+    color: white;
+    border-color:white;
+}
+
+button.btn-outline#submitFilterButton{
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+button.btn-outline#clearFilterButton {
+    color: red;
+    border-color: red;
+}
+
+.filters .filter-option:hover{
+    color: var(--accent-green);
+    cursor: pointer;
+}
+
+.filters .filter-option{
+    border-bottom: 1px solid white;
+}
+
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: 2px solid #2f2f2f;
@@ -179,6 +202,11 @@ body {
     background-color: transparent;
     border-color: var(--accent-yellow);
 }
+
+#sortOrderOptions .form-check-input:checked, #sortFilterOptions .form-check-input:checked, #verifiedFilterOptions .form-check-input:checked{
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+}
 .errors-container {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('./images//manuel-sardo-dZOFaMG-0Q0-unsplash.jpg');
@@ -190,6 +218,9 @@ body {
 }
 
 @media (min-width: 768px){
+    #filterButtonContainer{
+        width: 200px;
+    }
     #main-page-container {
     height: 100vh;
     }
@@ -211,6 +242,9 @@ body {
     }
 
 @media(max-width: 768px){
+    #filterButtonContainer{
+        width: 100%;
+    }
     #main-page-container {
         height: 100%;
         background-attachment: fixed;
