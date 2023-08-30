@@ -73,7 +73,7 @@ app.get(
 				}
 				if (key == "verified" && query[key] == "true") {
 					isVerifiedArtists = true;
-					pipelineInsertion["$match"]["spotify_id"] = { $exists: true };
+					pipelineInsertion["$match"]["$and"] = [{spotify_id: {$exists: true}},{spotify_id: {$ne: null}}];
 				}
 				if (key == "skip") numToSkip = Number(query["skip"]);
 				if (key == "sort"){
