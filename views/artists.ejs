@@ -67,14 +67,14 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sortFilterOptions" aria-controls="sortFilterOptions">Sort</button>
                             </p>
                             <div id="sortFilterOptions" class="accordion-collapse collapse pt-3">
-                                <div class="accordion-body px-0 py-0">
-                                    <div class="form-check ms-2">
+                                <div class="accordion-body px-0 py-0" id="filterSwitchParent">
+                                    <div class="form-check form-switch ms-2">
                                         <label class="form-check-label" for="Popularity">Popularity</label>
-                                        <input type="radio" name="sort" id="Popularity" class="form-check-input" data-query-id="popularity">
+                                        <input type="checkbox" role="switch" name="sort" id="Popularity" class="form-check-input" data-query-id="popularity">
                                     </div>
-                                    <div class="form-check ms-2">
+                                    <div class="form-check form-switch ms-2">
                                         <label class="form-check-label" for="Name">Name</label>
-                                        <input type="radio" name="sort" id="Name" class="form-check-input" data-query-id="name">
+                                        <input type="checkbox" role="switch" name="sort" id="Name" class="form-check-input" data-query-id="name">
                                     </div>
                                 </div>
                             </div>
@@ -85,14 +85,14 @@
                             </p>
                             <div id="sortOrderOptions" class="accordion-collapse collapse pt-3">
                                 <div class="accordion-body px-0 py-0">
-                                    <div class="accordion-body px-0 py-0">
-                                        <div class="form-check ms-2">
+                                    <div class="accordion-body px-0 py-0" id="sortOrderSwitchParent">
+                                        <div class="form-check form-switch ms-2">
                                             <label class="form-check-label" for="ascOrder">Ascending</label>
-                                            <input type="radio" name="order" id="ascOrder" class="form-check-input" data-query-id="ascending">
+                                            <input type="checkbox" role="switch" name="order" id="ascOrder" class="form-check-input" data-query-id="ascending">
                                         </div>
-                                        <div class="form-check ms-2">
+                                        <div class="form-check form-switch ms-2">
                                             <label class="form-check-label" for="descOrder">Descending</label>
-                                            <input type="radio" name="order" id="descOrder" class="form-check-input" data-query-id="descending">
+                                            <input type="checkbox" role="switch" name="order" id="descOrder" class="form-check-input" data-query-id="descending">
                                         </div>
                                     </div>
                                 </div>
@@ -104,14 +104,14 @@
                             </p>
                             <div id="verifiedFilterOptions" class="accordion-collapse collapse pt-3">
                                 <div class="accordion-body px-0 py-0">
-                                    <div class="accordion-body px-0 py-0">
-                                        <div class="form-check ms-2">
+                                    <div class="accordion-body px-0 py-0" id="verifiedFilterSwitchParent">
+                                        <div class="form-check form-switch ms-2">
                                             <label class="form-check-label" for="verifiedButton">Verified</label>
-                                            <input type="radio" name="verified" id="verifiedButton" class="form-check-input" data-query-id="true">
+                                            <input type="checkbox" role="switch" name="verified" id="verifiedButton" class="form-check-input" data-query-id="true">
                                         </div>
-                                        <div class="form-check ms-2">
+                                        <div class="form-check form-switch ms-2">
                                             <label class="form-check-label" for="notVerifiedButton">Not Verified</label>
-                                            <input type="radio" name="verified" id="notVerifiedButton" class="form-check-input" data-query-id="false">
+                                            <input type="checkbox" role="switch" name="verified" id="notVerifiedButton" class="form-check-input" data-query-id="false">
                                         </div>
                                     </div>
                                 </div>
