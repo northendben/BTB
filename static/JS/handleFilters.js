@@ -3,6 +3,21 @@ const filterForm = document.querySelector('#filterAccordion')
 const allFilterRadios = document.querySelector('#filterButtonContainer').querySelectorAll('.form-check-input')
 const submitFilterButton = document.querySelector('#submitFilterButton')
 const clearFilterButton = document.querySelector('#clearFilterButton')
+const allSwitches = document.querySelectorAll('.form-check-input[role="switch"]')
+for(let s of allSwitches){
+    s.addEventListener('click', handleToggles)
+}
+
+function handleToggles(e){
+    const clickedSwitch = e.srcElement
+    if(clickedSwitch.checked === true){
+        const siblingSwitches = clickedSwitch.parentElement.parentElement.children
+        for(let filterSwitch of siblingSwitches){
+            filterSwitch.children[1].id != clickedSwitch.id ? filterSwitch.children[1].checked = false: null
+        }
+    }
+}
+
 
 function applyFiltersOnPageLoad(){
     const currentFilters = Array.from(new URLSearchParams(window.location.search).values())
@@ -16,6 +31,7 @@ function applyFiltersOnPageLoad(){
 function resetForm (e){
     e.preventDefault()
     filterForm.reset()
+    handleFilterApply()
 }
 
 function handleFilterApply(){
