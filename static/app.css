@@ -166,6 +166,7 @@ body {
     padding: 0;
     background-color: black;
     color: white;
+    font-family: 'Lato', sans-serif;
 }
 
 .contact-info-container a, .contact-info-container a:hover {
@@ -226,6 +227,10 @@ body {
     }
     .band-text-container{
         height: 100px;
+    }
+
+    #postIntroContainer {
+        margin-top: 216px;
     }
 
     .mobile-verification {
